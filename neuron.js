@@ -40,45 +40,45 @@ class NanoNeuron{
 	   	}
 	   	
 	   	//esta funcion toma todos los ejemplos creados para el entrenamiento [cTrain , fTrain] y calcula todos los modelos de predicción para 'cTrain'
-    forwardPropagation(model , cTrain , fTrain){
-    	    const m = cTrain.length;
-    	    let predictions = [];
-    	    let cost = 0;
-    	    for(let i = 0; i < m ; i++){
-    	    	    const prediction = this.predict(cTrain[i]);
-    	    	    cost += this.predictionCost(fTrain[i] , prediction);
-    	    	    predictions.push(prediction);
-    	    }
+               forwardPropagation(model , cTrain , fTrain){
+    	           const m = cTrain.length;
+    	           let predictions = [];
+    	           let cost = 0;
+    	           for(let i = 0; i < m ; i++){
+    	    	       const prediction = this.predict(cTrain[i]);
+    	    	       cost += this.predictionCost(fTrain[i] , prediction);
+    	    	       predictions.push(prediction);
+    	           }
     	    
-    	    cost /= m;
-    	    return [predictions , cost];
-    }
+    	           cost /= m;
+    	           return [predictions , cost];
+               }
     
-    //esta es la funcion que usara la neurona para aprender a calibrar su camino en la prediccion
-    //para ello buscara el camino que menos costo requiera
-    backwardPropagation(predictions , cTrain , fTrain){
-    	   const m = cTrain.length;
-    	   let dW = 0 , dB = 0;
+               //esta es la funcion que usara la neurona para aprender a calibrar su camino en la prediccion
+               //para ello buscara el camino que menos costo requiera
+               backwardPropagation(predictions , cTrain , fTrain){
+    	           const m = cTrain.length;
+    	           let dW = 0 , dB = 0;
     	   
-    	   //funcion para calcular cuanto tiene que cambiar dW y que tan rapido el parametro w tiene que cambiar
-    	   for(let i = 0; i < m ; i++){
-    	   	    dW += (fTrain[i] - predictions[i]) * cTrain[i];
+    	           //funcion para calcular cuanto tiene que cambiar dW y que tan rapido el parametro w tiene que cambiar
+    	           for(let i = 0; i < m ; i++){
+    	   	       dW += (fTrain[i] - predictions[i]) * cTrain[i];
     	   	    
-    	   	    //lo mismo con dB
-    	   	    dB += (fTrain[i] - predictions[i]);
-    	   	}
-    	   //sacamos el promedio de los resultados
-    	   dW /= m;
-    	   dB /= m;
-    	   return [dW , dB];
-    }
+    	   	       //lo mismo con dB
+    	   	       dB += (fTrain[i] - predictions[i]);
+    	   	   }
+    	          //sacamos el promedio de los resultados
+    	          dW /= m;
+    	          dB /= m;
+    	          return [dW , dB];
+           }
     
-    //La funcion de entrenamiento , esta es la funcion encargada de entrenar la neurona , empleando un tiempo(epochs)
-    //y la velocidad de entrenamiento (alpha)
-    train(neuron , epochs , alpha , cTrain , fTrain){
-    	    //variable para almacenar la historia de costos de la neurona
-    	    let costHistory = [];
-    	    for(let epoch = 0; epoch < epochs ; epoch++){
+           //La funcion de entrenamiento , esta es la funcion encargada de entrenar la neurona , empleando un tiempo(epochs)
+           //y la velocidad de entrenamiento (alpha)
+           train(neuron , epochs , alpha , cTrain , fTrain){
+    	       //variable para almacenar la historia de costos de la neurona
+    	       let costHistory = [];
+    	       for(let epoch = 0; epoch < epochs ; epoch++){
     	    	   const [predictions , cost] = this.forwardPropagation(neuron , cTrain , fTrain);    	    	   
     	    	   costHistory.push(cost);
     	    	   //usando el backwardPropagation ayudamos a la neurona a arreglar el umbral de prediccion
@@ -87,11 +87,11 @@ class NanoNeuron{
     	    	   //ajustamos los parametros de la neurona para mejorar futuras predicciones
     	    	   this.w += alpha * dW;
     	    	   this.b += alpha * dB;
-    	    }
-    	    //retornamos toda la historia del costo
-    	    return costHistory;
-    }
-}
+    	       }
+    	      //retornamos toda la historia del costo
+    	      return costHistory;
+          }
+ }
 
 //funcion para convertir de celcius a fahrenheit
 function celsiusToFahrenheit(c) {
